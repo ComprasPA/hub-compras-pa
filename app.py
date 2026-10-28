@@ -56,6 +56,31 @@ PORTAIS = [
      "url": "https://painel-regime-tributario.streamlit.app/", "icone": "tributo", "cor": "#5B9BD5"},
 ]
 
+# Artifacts publicados no Claude, em atalhos menores abaixo dos portais.
+ARTIFACTS = [
+    ("Acompanhamento e indicadores", "#62A03A", [
+        ("Taboca · Acompanhamento de compras", "Pedidos da obra Taboca",
+         "https://claude.ai/artifact/QGA1W5y3V8YsT3MpKfyR2s?sk=mCackCHqJXzC4ui-uA7ewg#pedidos"),
+        ("SCs sem Pedido", "Solicitações ainda sem pedido", "https://claude.ai/artifact/KHXc4thP99uJkpQrq2dUuT"),
+        ("Volumetria de Compras", "Volume de pedidos e solicitações", "https://claude.ai/artifact/RN8u7B9UbmqQz3Gv8UmrRY"),
+        ("Criticidade das Cotações", "Jan a Set/2026", "https://claude.ai/artifact/LRCjUGnXhStmcsrJFM8VCx"),
+        ("Lead Time do Processo de Compras", "Tempo da solicitação à entrega",
+         "https://claude.ai/artifact/YDhojrDsGdar9AC7edDBch"),
+        ("Análise da base de fornecedores", "Perfil da base cadastrada",
+         "https://claude.ai/artifact/MQKWrzX7EW956x99gdptJh"),
+    ]),
+    ("Cotações, contratos e guias", "#E9A838", [
+        ("Estudo para Contrato · Peças STIHL", "Compras 2026", "https://claude.ai/artifact/1jfj2iH6XjZ6iGZZJKh71y"),
+        ("Topografia Taboca · Equalização", "Equalização de propostas", "https://claude.ai/artifact/3nnNZVcgH8P8DgV5TUvTok"),
+        ("Locação de Pick-Up Hilux", "Comparativo de propostas", "https://claude.ai/artifact/HPEbWwDYErr5ivigicDEVf"),
+        ("Desktop i7 12ª geração", "Comparativo de cotações", "https://claude.ai/artifact/JwVwjsYe9szX6oorycBWEh"),
+        ("Garfo Paleteiro para Munck", "Comparativo de propostas", "https://claude.ai/artifact/GQxuF8arfJTHrw137AwSdu"),
+        ("Gerador de Contratos", "Modelos de contrato", "https://claude.ai/artifact/7jeLL1REPmrtBhqKyZNXQG"),
+        ("Guia do app Meu Protheus", "Passo a passo de instalação",
+         "https://claude.ai/artifact/TeHAeaDi9R5NLvtEQanEYL"),
+    ]),
+]
+
 st.markdown("""
 <style>
 #MainMenu, header[data-testid="stHeader"], footer {visibility: hidden;}
@@ -99,6 +124,25 @@ a.hub-card:hover .hub-abrir {background: color-mix(in srgb, var(--cor) 22%, tran
 @media (max-width: 980px) {a.hub-card {min-height: 0;}}
 a.hub-card:hover .hub-abrir span {transform: translateX(4px);}
 .hub-abrir span {transition: transform .18s ease;}
+.hub-subsecao {display: flex; align-items: center; gap: 8px; color: #C3CEC7; font-size: .85rem; font-weight: 700;
+               margin: 22px 0 10px;}
+.hub-subsecao::before {content: ""; width: 8px; height: 8px; border-radius: 2px; background: var(--cor);}
+.hub-mini-grade {display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;}
+@media (max-width: 980px) {.hub-mini-grade {grid-template-columns: repeat(2, 1fr);}}
+@media (max-width: 520px) {.hub-mini-grade {grid-template-columns: 1fr;}}
+a.hub-mini {display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px;
+            background: #141D18; border: 1px solid rgba(255,255,255,.07); border-left: 3px solid var(--cor);
+            text-decoration: none !important; color: #E6EDE8 !important;
+            transition: transform .15s ease, border-color .15s ease, background .15s ease;}
+a.hub-mini:hover {transform: translateY(-2px); border-color: var(--cor); background: #18241E;}
+.hub-mini-icone {flex: none; width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center;
+                 color: var(--cor); background: color-mix(in srgb, var(--cor) 14%, transparent);}
+.hub-mini-icone svg {width: 17px; height: 17px;}
+.hub-mini-texto {min-width: 0; flex: 1;}
+.hub-mini-nome {font-size: .88rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+.hub-mini-desc {font-size: .76rem; color: #93A39A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+.hub-mini-seta {flex: none; color: #5E6E65; font-size: .9rem; transition: transform .15s ease, color .15s ease;}
+a.hub-mini:hover .hub-mini-seta {color: var(--cor); transform: translateX(3px);}
 @media (max-width: 640px) {
   .hub-topo .divisor {display: none;}
   .hub-titulo {font-size: 1.5rem;}
@@ -129,6 +173,23 @@ cards = "".join(
     for p in PORTAIS
 )
 st.markdown(f'<div class="hub-secao">Portais</div><div class="hub-grade">{cards}</div>', unsafe_allow_html=True)
+
+ICONE_ARTIFACT = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" '
+                  'stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/>'
+                  '<path d="M9 21V9"/></svg>')
+grupos = "".join(
+    f'<div class="hub-subsecao" style="--cor:{cor}">{grupo}</div><div class="hub-mini-grade">'
+    + "".join(
+        f'<a class="hub-mini" href="{url}" target="_blank" rel="noopener" title="{nome}" style="--cor:{cor}">'
+        f'<div class="hub-mini-icone">{ICONE_ARTIFACT}</div>'
+        f'<div class="hub-mini-texto"><div class="hub-mini-nome">{nome}</div><div class="hub-mini-desc">{desc}</div></div>'
+        f'<div class="hub-mini-seta">&rarr;</div></a>'
+        for nome, desc, url in itens
+    )
+    + "</div>"
+    for grupo, cor, itens in ARTIFACTS
+)
+st.markdown(f'<div class="hub-secao">Relatórios e análises</div>{grupos}', unsafe_allow_html=True)
 
 st.markdown('<div class="signature-fixed">Created by SS.</div>', unsafe_allow_html=True)
 st.markdown('<style>@media (min-width: 641px) {.assinatura-mobile {display:none;}}</style><p class="assinatura-mobile" style="font-size:11px;font-weight:700;color:#7a8a8a;margin-top:24px">Created by SS.</p>', unsafe_allow_html=True)
