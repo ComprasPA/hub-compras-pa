@@ -69,16 +69,6 @@ ARTIFACTS = [
         ("Análise da base de fornecedores", "Perfil da base cadastrada",
          "https://claude.ai/artifact/MQKWrzX7EW956x99gdptJh"),
     ]),
-    ("Cotações, contratos e guias", "#E9A838", [
-        ("Estudo para Contrato · Peças STIHL", "Compras 2026", "https://claude.ai/artifact/1jfj2iH6XjZ6iGZZJKh71y"),
-        ("Topografia Taboca · Equalização", "Equalização de propostas", "https://claude.ai/artifact/3nnNZVcgH8P8DgV5TUvTok"),
-        ("Locação de Pick-Up Hilux", "Comparativo de propostas", "https://claude.ai/artifact/HPEbWwDYErr5ivigicDEVf"),
-        ("Desktop i7 12ª geração", "Comparativo de cotações", "https://claude.ai/artifact/JwVwjsYe9szX6oorycBWEh"),
-        ("Garfo Paleteiro para Munck", "Comparativo de propostas", "https://claude.ai/artifact/GQxuF8arfJTHrw137AwSdu"),
-        ("Gerador de Contratos", "Modelos de contrato", "https://claude.ai/artifact/7jeLL1REPmrtBhqKyZNXQG"),
-        ("Guia do app Meu Protheus", "Passo a passo de instalação",
-         "https://claude.ai/artifact/TeHAeaDi9R5NLvtEQanEYL"),
-    ]),
 ]
 
 st.markdown("""
